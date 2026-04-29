@@ -4,7 +4,7 @@ This project implements the **Knuth-Morris-Pratt (KMP)** algorithm for string ma
 
 ## Environment & Tools
 
-*   **Operating System:** Windows 11 / Linux or GNU operative system
+*   **Operating System:** Windows 11 / Any Linux distribution or GNU operative system
 *   **Programming Language:** Python 3.12 or later
 *   **Tools:** Visual Studio Code / Jupyter Notebook
 *   **Version Control:** Git
@@ -19,13 +19,13 @@ This project is provided as a Jupyter Notebook (`.ipynb`). You can execute the c
 
 ### Option 1: Google Colab (Online)
 You can run the notebook directly in your browser without any local installation:
-1.  Open the colab file in the link [Tarea 2](https://colab.research.google.com/drive/133V4R2FVnkHIexdXyKGYbG_fP2d5YD5j#scrollTo=d3k-bTrlAvGQ).
+1.  Open the Colab file in the link [Tarea 2](https://colab.research.google.com/drive/133V4R2FVnkHIexdXyKGYbG_fP2d5YD5j#scrollTo=d3k-bTrlAvGQ).
 2.  Click on **Runtime** > **Run all**.
 
 ### Option 2: Clone the Repository
 1.  Clone this repository to your local machine:
     ```bash
-    git clone <https://github.com/jpcastanom/Tareas-Lenguajes-Formales-y-Automatas-.git>
+    git clone https://github.com/jpcastanom/Tareas-Lenguajes-Formales-y-Automatas-.git
     ```
 2.  Open the folder `Tarea 2` in VS Code or Jupyter Lab.
 3.  Execute the `Tarea2.ipynb` cells.
@@ -47,19 +47,19 @@ If you only wish to see the results and the code execution without running it:
 
 ## Algorithm Explanation
 
-The KMP algorithm improves string matching efficiency by avoiding redundant comparisons. It processes a keyword $P$ (pattern) to determine how many characters can be skipped in the text $T$ upon a mismatch.
+The **KMP algorithm** improves string matching efficiency by avoiding redundant comparisons. It processes a keyword $P$ (pattern) to determine how many characters can be skipped in the text $T$ upon a mismatch.
 
 ### 1. Preprocessing: The Failure Function $f(s)$
 
-The core of KMP is the **Failure Function**. For a keyword $b_1 b_2 \dots b_n$, the function $f(s)$ is defined as the length of the longest proper prefix of $b_1 \dots b_s$ that is also a suffix of $b_1 \dots b_s$.
+The core of KMP is the **Failure Function**. For a keyword $\{b_1 b_2 \dots b_n \}$, the function $f(s)$ is defined as the length of the longest proper prefix of $\{b_1 \dots b_s\}$ that is also a suffix of $\{b_1 \dots b_s\}$.
 
-$$f(s) = \max \{ k : k < s \text{ and } b_1 \dots b_k \text{ is a suffix of } b_1 \dots b_s \}$$
+$$f(s) = \max \{ k : k < s \ \text{ and } \ b_1 \dots b_k \ \text{ is a suffix of } \ b_1 \dots b_s \}$$
 
 This allows the algorithm to "slide" the pattern efficiently: if a mismatch occurs after matching $s$ characters, we don't start from zero; instead, we continue matching from position $f(s) + 1$.
 
 ### 2. The Scanning Process
 
-Given a text $a_1 a_2 \dots a_m$, the algorithm maintains a state $s$ representing the number of characters currently matched.
+Given a text $\{a_1 a_2 \dots a_m\}$, the algorithm maintains a state $s$ representing the number of characters currently matched.
 
 $$
 \begin{aligned}
