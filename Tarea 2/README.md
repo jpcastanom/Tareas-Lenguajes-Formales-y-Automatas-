@@ -1,0 +1,106 @@
+# Assignment 2: KMP Algorithm Implementation
+
+This project implements the **Knuth-Morris-Pratt (KMP)** algorithm for string matching, as described in Section 3.4.5 of *Compilers: Principles, Techniques, & Tools* (Aho et al.). This implementation is part of the lexical analysis phase, specifically used for efficient token recognition.
+
+## Environment & Tools
+
+*   **Operating System:** Windows 11 / Linux or GNU operative system
+*   **Programming Language:** Python 3.12 or later
+*   **Tools:** Visual Studio Code / Jupyter Notebook
+*   **Version Control:** Git
+
+## Execution Instructions
+
+To run the program and verify the results of Exercise 3.4.6, follow these steps:
+
+1.  **Ensure you have Python installed:**
+
+This project is provided as a Jupyter Notebook (`.ipynb`). You can execute the code using any of the following methods:
+
+### Option 1: Google Colab (Online)
+You can run the notebook directly in your browser without any local installation:
+1.  Open the colab file in the link [Tarea 2](https://colab.research.google.com/drive/133V4R2FVnkHIexdXyKGYbG_fP2d5YD5j#scrollTo=d3k-bTrlAvGQ).
+2.  Click on **Runtime** > **Run all**.
+
+### Option 2: Clone the Repository
+1.  Clone this repository to your local machine:
+    ```bash
+    git clone <https://github.com/jpcastanom/Tareas-Lenguajes-Formales-y-Automatas-.git>
+    ```
+2.  Open the folder `Tarea 2` in VS Code or Jupyter Lab.
+3.  Execute the `Tarea2.ipynb` cells.
+
+### Option 3: Local Download
+1.  Download the `Tarea2.ipynb` file in repository.
+2.  Install the Jupyter extension in your IDE or run:
+    ```bash
+    pip install notebook
+    jupyter notebook
+    ```
+3.  Open the file and run the cells.
+
+### Option 4: View Static Execution (HTML)
+If you only wish to see the results and the code execution without running it:
+1.  Open the `Tarea2.html` file in any web browser.
+
+---
+
+## Algorithm Explanation
+
+The KMP algorithm improves string matching efficiency by avoiding redundant comparisons. It processes a keyword $P$ (pattern) to determine how many characters can be skipped in the text $T$ upon a mismatch.
+
+### 1. Preprocessing: The Failure Function $f(s)$
+
+The core of KMP is the **Failure Function**. For a keyword $b_1 b_2 \dots b_n$, the function $f(s)$ is defined as the length of the longest proper prefix of $b_1 \dots b_s$ that is also a suffix of $b_1 \dots b_s$.
+
+$$f(s) = \max \{ k : k < s \text{ and } b_1 \dots b_k \text{ is a suffix of } b_1 \dots b_s \}$$
+
+This allows the algorithm to "slide" the pattern efficiently: if a mismatch occurs after matching $s$ characters, we don't start from zero; instead, we continue matching from position $f(s) + 1$.
+
+### 2. The Scanning Process
+
+Given a text $a_1 a_2 \dots a_m$, the algorithm maintains a state $s$ representing the number of characters currently matched.
+
+$$
+\begin{aligned}
+1)\;& s = 0; \\
+2)\;& \textbf{for } (i = 1 \text{ to } m) \{ \\
+3)\;& \quad \textbf{while } (s > 0 \text{ and } a_i \neq b_{s+1}) \ s = f(s); \\
+4)\;& \quad \textbf{if } (a_i = b_{s+1}) \ s = s + 1; \\
+5)\;& \quad \textbf{if } (s = n) \ \textbf{return } \text{"yes"}; \\
+\;& \} \\
+6)\;& \textbf{return } \text{"no"};
+\end{aligned}
+$$
+
+The time complexity is $O(m + n)$, where $m$ is the length of the text and $n$ is the length of the keyword.
+
+---
+
+## Exercise 3.4.6 Results
+
+The algorithm was applied to the keyword **"ababaa"**.
+
+### Failure Function Table
+| Index ($s$) | 0 | 1 | 2 | 3 | 4 | 5 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Keyword** | a | b | a | b | a | a |
+| **$f(s)$** | 0 | 0 | 1 | 2 | 3 | 1 |
+
+### Test Cases
+*   **a) Text: `abababaab`**
+    *   **Result:** `YES`
+    *   *Explanation:* The pattern matches starting at index 0 and completing at index 5.
+*   **b) Text: `abababbaa`**
+    *   **Result:** `NO`
+    *   *Explanation:* No continuous substring matches the complete pattern "ababaa".
+
+---
+
+## Authors
+*   Juan Pablo Castaño Morales
+*   Simon
+*   Fede
+
+**Course:** Lenguajes Formales y Compiladores - 2026-1 
+**Reference:** [1] Aho, A. V., et al. *Compilers: Principles, Techniques, & Tools*. 2nd ed. 2007.
