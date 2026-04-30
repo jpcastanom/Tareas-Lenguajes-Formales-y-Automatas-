@@ -60,15 +60,15 @@ The **KMP algorithm** improves string matching efficiency by avoiding redundant 
 
 ### 1. Preprocessing: The Failure Function $f(s)$
 
-The core of KMP is the **Failure Function**. For a keyword $\{b_1 b_2 \dots b_n \}$, the function $f(s)$ is defined as the length of the longest proper prefix of $\{b_1 \dots b_s\}$ that is also a suffix of $\{b_1 \dots b_s\}$.
+The core of KMP is the **Failure Function**. For a keyword {$b_1 b_2 \dots b_n$}, the function $f(s)$ is defined as the length of the longest proper prefix of {$b_1 \dots b_s\$} that is also a suffix of {$b_1 \dots b_s$}.
 
-$$f(s) = \max \{ k : k < s \ \text{ and } \ b_1 \dots b_k \ \text{ is a suffix of } \ b_1 \dots b_s \}$$
+$f(s) =$ max { $k : k < s$  and {$b_1 dots b_k$}  is a suffix of   {$b_1 \dots b_s$} 
 
 This allows the algorithm to "slide" the pattern efficiently: if a mismatch occurs after matching $s$ characters, we don't start from zero; instead, we continue matching from position $f(s) + 1$.
 
 ### 2. The Scanning Process
 
-Given a text $\{a_1 a_2 \dots a_m\}$, the algorithm maintains a state $s$ representing the number of characters currently matched.
+Given a text {$a_1 a_2 \dots a_m$}, the algorithm maintains a state $s$ representing the number of characters currently matched.
 
 1) $s = 0$  
 2) **for** $(i = 1 \text{ to } m)$ \{  
@@ -78,7 +78,7 @@ Given a text $\{a_1 a_2 \dots a_m\}$, the algorithm maintains a state $s$ repres
 \}  
 6) **return** "no"
 
-The time complexity is $O(m + n)$, where $m$ is the length of the text and $n$ is the length of the keyword.
+The time complexity is O(m + n), where m is the length of the text and $n$ is the length of the keyword.
 
 ---
 

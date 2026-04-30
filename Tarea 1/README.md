@@ -53,20 +53,21 @@ If you only wish to see the results and the code execution without running it:
 The core of this project is the `compute_failure_function(P)` function. Unlike naive string matching, which resets the search upon a mismatch, the KMP algorithm uses a "Failure Function" to determine the next best position to continue matching.
 
 #### How the Logic Works:
-We use a variable $t$ to keep track of the length of the longest proper prefix that is also a suffix:
-$t $= length of the longest proper prefix = suffix
+We use a variable t to keep track of the length of the longest proper prefix that is also a suffix:
+
+t = length of the longest proper prefix = suffix
 
 
 #### The "Fall Back" Mechanism:
 
-The most critical part of the code is the while $t > 0$ and $P[i] \neq P[t]$ loop.
+The most critical part of the code is the while t > 0 and P[i] != P[t] loop.
 
-If the current character at index $i$ does not match the expected character at index $t$, the algorithm does not restart from zero.
+If the current character at index $i$ does not match the expected character at index t, the algorithm does not restart from zero.
 
-Instead, it *"falls back"* to the value stored in $f[t-1]$. This allows the algorithm to reuse previous matching information.
+Instead, it *"falls back"* to the value stored in f[t-1]. This allows the algorithm to reuse previous matching information.
 
 #### Linear Time Complexity: 
-Because the pointer $i$ always moves forward and the pointer $t$ only moves back through previously matched states, the algorithm completes in $O(m)$ time (where $m$ is the pattern length).
+Because the pointer i always moves forward and the pointer t only moves back through previously matched states, the algorithm completes in O(m) time (where *m* is the pattern length).
 
 ---
 ## Authors
