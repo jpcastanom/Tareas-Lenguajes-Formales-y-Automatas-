@@ -70,15 +70,13 @@ This allows the algorithm to "slide" the pattern efficiently: if a mismatch occu
 
 Given a text $\{a_1 a_2 \dots a_m\}$, the algorithm maintains a state $s$ representing the number of characters currently matched.
 
-$
-1)s = 0; \\
-2)\textbf{for } (i = 1 \text{ to } m) \{ \\
-3)\textbf{while } (s > 0 \text{ and } a_i \neq b_{s+1}) \ s = f(s) \\
-4)\textbf{if } (a_i = b_{s+1}) \ s = s + 1 \\
-5)\textbf{if } (s = n) \ \textbf{return } \text{"yes"} \\
-\} \\
-6)\textbf{return } \text{"no"}
-$
+1) $s = 0$  
+2) **for** $(i = 1 \text{ to } m)$ \{  
+3) **while** $(s > 0 \text{ and } a_i \neq b_{s+1})$ $s = f(s)$  
+4) **if** $(a_i = b_{s+1})$ $s = s + 1$  
+5) **if** $(s = n)$ **return** "yes"  
+\}  
+6) **return** "no"
 
 The time complexity is $O(m + n)$, where $m$ is the length of the text and $n$ is the length of the keyword.
 
