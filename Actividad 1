@@ -1,0 +1,163 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/jpcastanom/Tareas-Lenguajes-Formales-y-Automatas-/blob/main/Actividad%201\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Lenguajes formales y automatas\n"
+      ],
+      "metadata": {
+        "id": "KeuepvEHoJM5"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Integrantes del equipo: Simón Escobar Díaz .....\n",
+        "\n",
+        "Actividad 1 y 2"
+      ],
+      "metadata": {
+        "id": "w1WEQ9Prh_xs"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Actividad 1\n"
+      ],
+      "metadata": {
+        "id": "IgN005bYou-8"
+      }
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "b69c6e5f",
+        "outputId": "5a0afd3c-7586-493e-ae82-2aac6e303d88"
+      },
+      "source": [
+        "def compute_failure_function(P):\n",
+        "\n",
+        "    \"\"\"Args:\n",
+        "        P: cadena de texto (el patrón).\n",
+        "\n",
+        "    Returns:\n",
+        "        Una lista que representa la función de falla, donde f[i] es la longitud del\n",
+        "        prefijo propio más largo de P[0...i] que también es sufijo de P[0...i].\n",
+        "        y f[0] corresponde a f(1) en la notación base-1.\n",
+        "    \"\"\"\n",
+        "    m = len(P)\n",
+        "\n",
+        "    if m == 0:\n",
+        "        return []\n",
+        "\n",
+        "    f = [0] * m\n",
+        "    t = 0 # registro de la longitud del prefijo y sufijo\n",
+        "\n",
+        "    f[0] = 0\n",
+        "\n",
+        "    if m == 1:\n",
+        "        return f\n",
+        "\n",
+        "    # Calcula f[i] para i desde 1 hasta m-1\n",
+        "    for i in range(1, m):\n",
+        "        # Desplazamiento si no hay coincidencia\n",
+        "        while t > 0 and P[i] != P[t]:\n",
+        "            t = f[t-1]\n",
+        "\n",
+        "        # Coincidencia, extiende el prefijo/sufijo\n",
+        "        if P[i] == P[t]:\n",
+        "            t = t + 1\n",
+        "            f[i] = t\n",
+        "        else:\n",
+        "            f[i] = 0 # No hay coincidencia y t ya es 0\n",
+        "\n",
+        "    return f\n",
+        "\n",
+        "def print_failure_table(pattern, failure_function):\n",
+        "    \"\"\"Imprime la tabla de la función de falla formateada de  forma sencilla.\"\"\"\n",
+        "    print(f\"Patrón: '{pattern}'\")\n",
+        "    print(f\"Función de Falla: {failure_function}\")\n",
+        "\n",
+        "\n",
+        "print(\"Ejercicios 3.4.3:\")\n",
+        "\n",
+        "# Ejercicio 3.4.3 a) abababaab\n",
+        "pattern_a = \"abababaab\"\n",
+        "f_a = compute_failure_function(pattern_a)\n",
+        "print(f\"a) '{pattern_a}'\")\n",
+        "print_failure_table(pattern_a, f_a)\n",
+        "print(\"\\n\")\n",
+        "\n",
+        "# Ejercicio 3.4.3 b) aaaaaa\n",
+        "pattern_b = \"aaaaaa\"\n",
+        "f_b = compute_failure_function(pattern_b)\n",
+        "print(f\"b) '{pattern_b}'\")\n",
+        "print_failure_table(pattern_b, f_b)\n",
+        "print(\"\\n\")\n",
+        "\n",
+        "# Ejercicio 3.4.3 c) abbaabb\n",
+        "pattern_c = \"abbaabb\"\n",
+        "f_c = compute_failure_function(pattern_c)\n",
+        "print(f\"c) '{pattern_c}'\")\n",
+        "print_failure_table(pattern_c, f_c)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Ejemplo del libro para la cadena: 'ababaa'\n",
+            "Patrón: 'ababaa'\n",
+            "Función de Falla: [0, 0, 1, 2, 3, 1]\n",
+            "\n",
+            "\n",
+            "Ejercicios 3.4.3:\n",
+            "a) 'abababaab'\n",
+            "Patrón: 'abababaab'\n",
+            "Función de Falla: [0, 0, 1, 2, 3, 4, 5, 1, 2]\n",
+            "\n",
+            "\n",
+            "b) 'aaaaaa'\n",
+            "Patrón: 'aaaaaa'\n",
+            "Función de Falla: [0, 1, 2, 3, 4, 5]\n",
+            "\n",
+            "\n",
+            "c) 'abbaabb'\n",
+            "Patrón: 'abbaabb'\n",
+            "Función de Falla: [0, 0, 0, 1, 1, 2, 3]\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
