@@ -1,28 +1,28 @@
-# Workshops de Inteligencia Artificial  
+# Trabajos de Lenguajes Formales y Automatas 
 
-Este repositorio reúne los talleres prácticos que hemos desarrollado durante el curso de Inteligencia Artificial en la Universidad EAFIT. La idea es ir documentando aquí nuestro proceso de aprendizaje, las implementaciones realizadas y los retos técnicos que hemos ido resolviendo a lo largo del semestre.
+Este repositorio reúne los trabajos prácticos que hemos desarrollado durante el curso de Lenguajes formales y automatas en la Universidad EAFIT. La idea es ir documentando aquí nuestro proceso de aprendizaje, las implementaciones realizadas y los retos técnicos que hemos ido resolviendo a lo largo del semestre.
 
 ## Estructura del repositorio  
 
-Cada workshop está organizado en su propia carpeta, junto con su documentación y archivos correspondientes.
+Cada trabajo está organizado en su propia carpeta, junto con su documentación y archivos correspondientes.
 
-- **Workshop 1**: Implementación de un framework de Deep Learning desde cero (MiniTorch).  
-- *(Se irán agregando más workshops a medida que avance el curso.)*
+- **Tarea 1**: Implementación de *failure function* componente del algoritmo Knuth-Morris-Pratt (KMP).  
+- **Tarea 2**: Implementación del algoritmo *Knuth-Morris-Pratt (KMP)*
 
 ## Objetivos del curso  
 
 A lo largo del semestre buscamos:
 
-- Entender los fundamentos teóricos de la Inteligencia Artificial.  
-- Implementar algoritmos de Machine Learning y Deep Learning desde cero, para comprender realmente cómo funcionan.  
-- Fortalecer nuestras habilidades de programación en Python aplicadas a IA.   
+- Entender los fundamentos teóricos de los lenguajes formales y la construcción de automatas.  
+- Implementar algoritmos desde cero, para comprender realmente cómo funcionan los automatas y los lenguajes vistos en el curso.  
+- Fortalecer nuestras habilidades de programación en Python.   
 
-Más allá de usar librerías, el enfoque del curso ha sido comprender qué está pasando “por debajo” de cada modelo.
+El enfoque del curso ha sido comprender qué está pasando “por debajo” de cada método o algoritmo.
 
 ## Equipo  
 
-- Juan Pablo Castaño  
-- Sara Sofía Quintero  
-- Karol Vanessa Cuello  
+*   Juan Pablo Castaño Morales
+*   Simón Escobar Díaz 
+*   Federico Giraldo Vásquez  
 
 Estudiantes de Ingeniería Matemática – Universidad EAFIT  

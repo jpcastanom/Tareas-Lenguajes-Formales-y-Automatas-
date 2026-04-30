@@ -1,13 +1,17 @@
 # Assignment 2: KMP Algorithm Implementation
 
-This project implements the **Knuth-Morris-Pratt (KMP)** algorithm for string matching, as described in Section 3.4.5 of *Compilers: Principles, Techniques, & Tools* (Aho et al.). This implementation is part of the lexical analysis phase, specifically used for efficient token recognition.
+This project implements the **Knuth-Morris-Pratt (KMP)** algorithm for string matching. This implementation is part of the lexical analysis phase, specifically used for efficient token recognition.
 
-## Environment & Tools
+## Environment & Infrastructure
+The project was developed and tested under the following technical specifications:
 
-*   **Operating System:** Windows 11 / Any Linux distribution or GNU operative system
-*   **Programming Language:** Python 3.12 or later
-*   **Tools:** Visual Studio Code / Jupyter Notebook
-*   **Version Control:** Git
+* **Operating System:** Ubuntu 24.04 LTS. The code is optimized for Linux-based environments, leveraging standard Python process management.
+
+* **Language:** Python 3.12. Utilizing modern type hinting and efficient list comprehensions.
+
+* **IDE/Tools:** Developed using Visual Studio Code and Jupyter Notebooks for interactive testing.
+
+* **Version Control:** Hosted on GitHub to ensure reproducibility and collaborative development.
 
 ## Execution Instructions
 
@@ -19,27 +23,32 @@ This project is provided as a Jupyter Notebook (`.ipynb`). You can execute the c
 
 ### Option 1: Google Colab (Online)
 You can run the notebook directly in your browser without any local installation:
-1.  Open the Colab file in the link [Tarea 2](https://colab.research.google.com/drive/133V4R2FVnkHIexdXyKGYbG_fP2d5YD5j#scrollTo=d3k-bTrlAvGQ).
+1.  Open the Colab file in the link [Tarea 2](https://colab.research.google.com/drive/133V4R2FVnkHIexdXyKGYbG_fP2d5YD5j?usp=sharing).
 2.  Click on **Runtime** > **Run all**.
 
 ### Option 2: Clone the Repository
-1.  Clone this repository to your local machine:
-    ```bash
-    git clone https://github.com/jpcastanom/Tareas-Lenguajes-Formales-y-Automatas-.git
-    ```
-2.  Open the folder `Tarea 2` in VS Code or Jupyter Lab.
-3.  Execute the `Tarea2.ipynb` cells.
 
-### Option 3: Local Download
-1.  Download the `Tarea2.ipynb` file in repository.
-2.  Install the Jupyter extension in your IDE or run:
-    ```bash
-    pip install notebook
-    jupyter notebook
-    ```
-3.  Open the file and run the cells.
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/jpcastanom/Tareas-Lenguajes-Formales-y-Automatas-.git
+   ```
+2. Open the project:
 
-### Option 4: View Static Execution (HTML)
+   * Navigate to the folder `Tarea 2`.
+   * Open it in **VS Code** or **JupyterLab**.
+
+3. Ensure Jupyter is set up:
+   * Install the Jupyter extension if you're using VS Code.
+4. If Jupyter is not installed, run:
+   ```bash
+   pip install notebook
+   jupyter notebook
+   ```
+5. Run the notebook:
+   * Open `Tarea2.ipynb`.
+   * Execute the cells.
+
+### Option 3: View Static Execution (HTML)
 If you only wish to see the results and the code execution without running it:
 1.  Open the `Tarea2.html` file in any web browser.
 
@@ -61,17 +70,15 @@ This allows the algorithm to "slide" the pattern efficiently: if a mismatch occu
 
 Given a text $\{a_1 a_2 \dots a_m\}$, the algorithm maintains a state $s$ representing the number of characters currently matched.
 
-$$
-\begin{aligned}
-1)\;& s = 0; \\
-2)\;& \textbf{for } (i = 1 \text{ to } m) \{ \\
-3)\;& \quad \textbf{while } (s > 0 \text{ and } a_i \neq b_{s+1}) \ s = f(s); \\
-4)\;& \quad \textbf{if } (a_i = b_{s+1}) \ s = s + 1; \\
-5)\;& \quad \textbf{if } (s = n) \ \textbf{return } \text{"yes"}; \\
-\;& \} \\
-6)\;& \textbf{return } \text{"no"};
-\end{aligned}
-$$
+$
+1)\; s = 0; \\
+2)\; \textbf{for } (i = 1 \text{ to } m) \{ \\
+3)\; \quad \textbf{while } (s > 0 \text{ and } a_i \neq b_{s+1}) \ s = f(s); \\
+4)\; \quad \textbf{if } (a_i = b_{s+1}) \ s = s + 1; \\
+5)\; \quad \textbf{if } (s = n) \ \textbf{return } \text{"yes"}; \\
+\; \} \\
+6)\; \textbf{return } \text{"no"};
+$
 
 The time complexity is $O(m + n)$, where $m$ is the length of the text and $n$ is the length of the keyword.
 
@@ -99,8 +106,8 @@ The algorithm was applied to the keyword **"ababaa"**.
 
 ## Authors
 *   Juan Pablo Castaño Morales
-*   Simon
-*   Fede
+*   Simón Escobar Díaz 
+*   Federico Giraldo Vásquez
 
-**Course:** Lenguajes Formales y Compiladores - 2026-1 
+**Course:** Lenguajes formales y automatas - 2026-1 
 **Reference:** [1] Aho, A. V., et al. *Compilers: Principles, Techniques, & Tools*. 2nd ed. 2007.
