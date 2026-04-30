@@ -1,19 +1,23 @@
-Assignment 1: KMP Failure Function Implementation
-This project implements the Failure Function component of the Knuth-Morris-Pratt (KMP) string-matching algorithm. This logic is essential for building efficient lexical analyzers that recognize patterns in a single pass without backtracking through the input text.
+# Assignment 1: KMP Failure Function Implementation
 
-Environment & Infrastructure
+This project implements the **Failure Function** component of the Knuth-Morris-Pratt (KMP) string-matching algorithm. This logic is essential for building efficient lexical analyzers that recognize patterns in a single pass without backtracking through the input text.
+
+## Environment & Infrastructure
 The project was developed and tested under the following technical specifications:
 
-Operating System: Ubuntu 24.04 LTS. The code is optimized for Linux-based environments, leveraging standard Python process management.
+* **Operating System**: Ubuntu 24.04 LTS. The code is optimized for Linux-based environments, leveraging standard Python process management.
 
-Language: Python 3.12. Utilizing modern type hinting and efficient list comprehensions.
+* **Language**: Python 3.12. Utilizing modern type hinting and efficient list comprehensions.
 
-IDE/Tools: Developed using Visual Studio Code and Jupyter Notebooks for interactive testing.
+* **IDE/Tools**: Developed using Visual Studio Code and Jupyter Notebooks for interactive testing.
 
-Version Control: Hosted on GitHub to ensure reproducibility and collaborative development.
-Execution Instructions
+## Version Control: 
+Hosted on GitHub to ensure reproducibility and collaborative development.
+
+## Execution Instructions
 Since the project is hosted in a GitHub repository, follow these steps to run it locally on your machine:
 
+### Option 2: Clone the Repository
 1. Clone the Repository
 Open your terminal and run:
 
@@ -33,6 +37,12 @@ Ensure you have the notebook package: pip install notebook.
 Run the server: jupyter notebook.
 
 Open the .ipynb file and execute the cells.
+
+### Option 4: View Static Execution (HTML)
+If you only wish to see the results and the code execution without running it:
+1.  Open the `Tarea1.html` file in any web browser.
+
+---
 
 Code Explanation & Logic
 The core of this project is the compute_failure_function(P) function. Unlike naive string matching, which resets the search upon a mismatch, the KMP algorithm uses a "Failure Function" to determine the next best position to continue matching.

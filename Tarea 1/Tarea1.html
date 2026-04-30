@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Tarea2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Tarea1</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7810,24 +7810,42 @@ a.anchor-link {
 <p><strong>Course:</strong> Lenguajes formales y automatas - 2026-1
 <strong>Reference:</strong> [1] Aho, A. V., et al. <em>Compilers: Principles, Techniques, &amp; Tools</em>. 2nd ed. 2007.</p>
 <hr/>
-<h1 id="Assignment-2">Assignment 2<a class="anchor-link" href="#Assignment-2">¶</a></h1><hr/>
-<p>Having computed the failure function for a keyword $b_1 b_2 \cdots b_n$, we can scan a string $a_1 a_2 \cdots a_m$ in time $O(m)$ to tell whether the keyword occurs in the string. The algorithm slides the keyword along the string, trying to make progress by matching the next character of the keyword with the next character of the string. If it cannot do so after matching $s$ characters, then it “slides” the keyword right $s - f(s)$ positions, so only the first $f(s)$ characters of the keyword are considered matched with the string.</p>
-<p>$$
+<h1 id="Assignment-1">Assignment 1<a class="anchor-link" href="#Assignment-1">¶</a></h1><hr/>
+<p><strong>Fig. 3.19.</strong> The objective is that $b_1 b_2 \ldots b_{f(s)}$ is the longest proper prefix of $b_1 b_2 \ldots b_s$ that is also a suffix of $b_1 b_2 \ldots b_s$. The reason $f(s)$ is important is that if we are trying to match a text string for $b_1 b_2 \ldots b_n$, and we have matched the first $s$ positions but we then fail (i.e., the next position of the text string does not hold $b_{s+1}$), then $f(s)$ is the longest prefix of $b_1 b_2 \ldots b_n$ that could possibly match the text string up to the point we are at. Of course, the next character of the text string must be $b_{f(s)+1}$, or else we still have problems and must consider a yet shorter prefix, which will be $b_{f(f(s))}$.</p>
+<hr/>
+<h3 id="Algorithm">Algorithm<a class="anchor-link" href="#Algorithm">¶</a></h3><p>$$
 \begin{aligned}
-1)\;&amp; s = 0; \\
-2)\;&amp; \textbf{for } (i = 1;\ i \leq m;\ i++)\ \{ \\
-3)\;&amp; \qquad \textbf{while } (s &gt; 0 \ \&amp;\&amp;\ a_i \neq b_{s+1})\ s = f(s); \\
-4)\;&amp; \qquad \textbf{if } (a_i = b_{s+1})\ s = s + 1; \\
-5)\;&amp; \qquad \textbf{if } (s = n)\ \textbf{return } \text{“yes”}; \\
-\;&amp; \} \\
-6)\;&amp; \textbf{return } \text{“no”};
+1)\ &amp; t = 0 \\
+2)\ &amp; f(1) = 0 \\
+3)\ &amp; \text{for } (s = 1; s &lt; n; s++) \{ \\
+4)\ &amp; \quad \text{while } (t &gt; 0 \ \&amp;\&amp;\ b_{s+1} \ne b_{t+1})\ t = f(t); \\
+5)\ &amp; \quad \text{if } (b_{s+1} = b_{t+1}) \{ \\
+6)\ &amp; \qquad t = t + 1; \\
+7)\ &amp; \qquad f(s+1) = t; \\
+8)\ &amp; \quad \} \ \text{else } f(s+1) = 0; \\
+9)\ &amp; \}
 \end{aligned}
 $$</p>
-<p>The KMP algorithm tests whether string $a_1 a_2 \cdots a_m$ contains a single keyword $b_1 b_2 \cdots b_n$ as a substring in $O(m+n)$ time.</p>
+<p>Algorithm to compute the failure function for keyword $b_1 b_2 \ldots b_n$</p>
 <hr/>
-<p><strong>Exercise 3.4.6:</strong> Apply Algorithm KMP to test whether keyword $ababaa$ is a substring of:</p>
-<p>a) $abababaab$.</p>
-<p>b) $abababbaa$.</p>
+<h3 id="Example">Example<a class="anchor-link" href="#Example">¶</a></h3><p>As an example, the failure function for the trie constructed above for <strong>ababaa</strong> is:</p>
+<p>$$
+\begin{array}{c|cccccc}
+s &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\
+\hline
+f(s) &amp; 0 &amp; 0 &amp; 1 &amp; 2 &amp; 3 &amp; 1
+\end{array}
+$$</p>
+<p>For instance, states $3$ and $1$ represent prefixes <strong>aba</strong> and <strong>a</strong>, respectively.<br/>
+$f(3) = 1$ because <strong>a</strong> is the longest proper prefix of <strong>aba</strong> that is also a suffix of <strong>aba</strong>.<br/>
+Also, $f(2) = 0$, because the longest proper prefix of <strong>ab</strong> that is also a suffix is the empty string.</p>
+<hr/>
+<h3 id="Exercise-3.4.3">Exercise 3.4.3<a class="anchor-link" href="#Exercise-3.4.3">¶</a></h3><p>Construct the failure function for the strings:</p>
+<ul>
+<li>a) <strong>abababaab</strong></li>
+<li>b) <strong>aaaaaa</strong></li>
+<li>c) <strong>abbaabb</strong></li>
+</ul>
 </div>
 </div>
 </div>
@@ -7839,81 +7857,71 @@ $$</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_failure</span><span class="p">(</span><span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Compute the KMP failure function for the given keyword.</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_failure_function</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        keyword: The pattern string b1b2...bn.</span>
+<span class="w">    </span><span class="sd">"""Args:</span>
+<span class="sd">        P: cadena de texto (el patrón).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        A list f where f[s] is the length of the longest proper prefix of</span>
-<span class="sd">        keyword[:s+1] that is also a suffix of keyword[:s+1].</span>
-<span class="sd">        f[0] is always 0 by definition (no proper prefix for a single character).</span>
+<span class="sd">        Una lista que representa la función de falla, donde f[i] es la longitud del</span>
+<span class="sd">        prefijo propio más largo de P[0...i] que también es sufijo de P[0...i].</span>
+<span class="sd">        y f[0] corresponde a f(1) en la notación base-1.</span>
 <span class="sd">    """</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>  <span class="c1"># f[0] = 0 always</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
 
-    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># length of the previous longest prefix-suffix</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">while</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">keyword</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">keyword</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="n">k</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">keyword</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">keyword</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># registro de la longitud del prefijo y sufijo</span>
+
+    <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="c1"># Calcula f[i] para i desde 1 hasta m-1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="c1"># Desplazamiento si no hay coincidencia</span>
+        <span class="k">while</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">P</span><span class="p">[</span><span class="n">t</span><span class="p">]:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Coincidencia, extiende el prefijo/sufijo</span>
+        <span class="k">if</span> <span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">P</span><span class="p">[</span><span class="n">t</span><span class="p">]:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># No hay coincidencia y t ya es 0</span>
 
     <span class="k">return</span> <span class="n">f</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">kmp_search</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Test whether `keyword` is a substring of `text` using the KMP algorithm</span>
-<span class="sd">    (Figure 3.20).</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_failure_table</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">failure_function</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Imprime la tabla de la función de falla formateada de  forma sencilla."""</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Patrón: '</span><span class="si">{</span><span class="n">pattern</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Función de Falla: </span><span class="si">{</span><span class="n">failure_function</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        text:    The string to search in.</span>
-<span class="sd">        keyword: The pattern to search for.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        True if keyword appears as a substring of text, False otherwise.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">keyword</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Ejercicios 3.4.3:"</span><span class="p">)</span>
 
-    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">compute_failure</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+<span class="c1"># Ejercicio 3.4.3 a) abababaab</span>
+<span class="n">pattern_a</span> <span class="o">=</span> <span class="s2">"abababaab"</span>
+<span class="n">f_a</span> <span class="o">=</span> <span class="n">compute_failure_function</span><span class="p">(</span><span class="n">pattern_a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"a) '</span><span class="si">{</span><span class="n">pattern_a</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+<span class="n">print_failure_table</span><span class="p">(</span><span class="n">pattern_a</span><span class="p">,</span> <span class="n">f_a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># number of characters currently matched</span>
+<span class="c1"># Ejercicio 3.4.3 b) aaaaaa</span>
+<span class="n">pattern_b</span> <span class="o">=</span> <span class="s2">"aaaaaa"</span>
+<span class="n">f_b</span> <span class="o">=</span> <span class="n">compute_failure_function</span><span class="p">(</span><span class="n">pattern_b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"b) '</span><span class="si">{</span><span class="n">pattern_b</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+<span class="n">print_failure_table</span><span class="p">(</span><span class="n">pattern_b</span><span class="p">,</span> <span class="n">f_b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-        <span class="k">while</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">keyword</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">keyword</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="k">return</span> <span class="kc">False</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Exercice 3.4.6 solution"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="s1">'─'</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">keyword</span> <span class="o">=</span> <span class="s2">"ababaa"</span>
-<span class="n">test_strings</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"abababaab"</span><span class="p">),(</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"abababbaa"</span><span class="p">)]</span>
-<span class="c1"># Show failure function</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">compute_failure</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Keyword : </span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Indices : </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">keyword</span><span class="p">)))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failure : </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">test_strings</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">kmp_search</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">keyword</span><span class="p">)</span>
-        <span class="n">answer</span> <span class="o">=</span> <span class="s2">"YES — keyword is a substring"</span> <span class="k">if</span> <span class="n">result</span> <span class="k">else</span> <span class="s2">"NO  — keyword is NOT a substring"</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="s1">'─'</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">) text = </span><span class="se">\"</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="se">\"</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Result  : </span><span class="si">{</span><span class="n">answer</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Ejercicio 3.4.3 c) abbaabb</span>
+<span class="n">pattern_c</span> <span class="o">=</span> <span class="s2">"abbaabb"</span>
+<span class="n">f_c</span> <span class="o">=</span> <span class="n">compute_failure_function</span><span class="p">(</span><span class="n">pattern_c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"c) '</span><span class="si">{</span><span class="n">pattern_c</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+<span class="n">print_failure_table</span><span class="p">(</span><span class="n">pattern_c</span><span class="p">,</span> <span class="n">f_c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7926,21 +7934,20 @@ $$</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Exercice 3.4.6 solution
+<pre>Ejercicios 3.4.3:
+a) 'abababaab'
+Patrón: 'abababaab'
+Función de Falla: [0, 0, 1, 2, 3, 4, 5, 1, 2]
 
-────────────────────────────────────────────────────────────
 
-Keyword : ababaa
-Indices : [0, 1, 2, 3, 4, 5]
-Failure : [0, 0, 1, 2, 3, 1]
+b) 'aaaaaa'
+Patrón: 'aaaaaa'
+Función de Falla: [0, 1, 2, 3, 4, 5]
 
-────────────────────────────────────────────────────────────
-Part a) text = "abababaab"
-Result  : YES — keyword is a substring
 
-────────────────────────────────────────────────────────────
-Part b) text = "abababbaa"
-Result  : NO  — keyword is NOT a substring
+c) 'abbaabb'
+Patrón: 'abbaabb'
+Función de Falla: [0, 0, 0, 1, 1, 2, 3]
 </pre>
 </div>
 </div>
